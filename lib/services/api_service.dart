@@ -93,13 +93,13 @@ class ApiService {
         throw Exception('Login failed - Status: ${response.statusCode}');
       }
     } on http.ClientException catch (e) {
-      throw Exception('Network error - Please check your connection');
+      throw Exception('Network error - Please check your connection $e');
     } on SocketException catch (e) {
-      throw Exception('Connection failed - Please check your network');
+      throw Exception('Connection failed - Please check your network $e');
     } on FormatException catch (e) {
-      throw Exception('Invalid response from server');
+      throw Exception('Invalid response from server $e');
     } catch (e) {
-      throw Exception('Login failed: ${e.toString()}');
+      throw Exception('Login failed: ${e.toString()} $e');
     }
   }
 
@@ -135,13 +135,13 @@ class ApiService {
             'Failed to fetch rewards - Status: ${response.statusCode}');
       }
     } on http.ClientException catch (e) {
-      throw Exception('Network error - Please check your connection');
+      throw Exception('Network error - Please check your connection $e');
     } on SocketException catch (e) {
-      throw Exception('Connection failed - Please check your network');
+      throw Exception('Connection failed - Please check your network $e');
     } on FormatException catch (e) {
-      throw Exception('Invalid response from server');
+      throw Exception('Invalid response from server $e');
     } catch (e) {
-      throw Exception('Failed to fetch rewards: ${e.toString()}');
+      throw Exception('Failed to fetch rewards: ${e.toString()} $e');
     }
   }
 
@@ -192,13 +192,13 @@ class ApiService {
             'Failed to claim reward - Status: ${response.statusCode}');
       }
     } on http.ClientException catch (e) {
-      throw Exception('Network error - Please check your connection');
+      throw Exception('Network error - Please check your connection $e');
     } on SocketException catch (e) {
-      throw Exception('Connection failed - Please check your network');
+      throw Exception('Connection failed - Please check your network $e');
     } on FormatException catch (e) {
-      throw Exception('Invalid response from server');
+      throw Exception('Invalid response from server $e');
     } catch (e) {
-      throw Exception('Failed to claim reward: ${e.toString()}');
+      throw Exception('Failed to claim reward: ${e.toString()} $e');
     }
   }
 }

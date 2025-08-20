@@ -47,34 +47,23 @@ class AuthProvider extends ChangeNotifier {
       _isLoading = true;
       notifyListeners();
 
-      print('🔐 AuthProvider: Starting login process...');
 
       final user = await _apiService.login(email, password);
-      print('✅ AuthProvider: Login successful, user: ${user.fullName}');
 
-      // Store user data and REAL token from API
       _user = user;
-      _authToken = user.token; // Use the real token from API response
+      _authToken = user.token;
 
-      print(
-          '🔑 AuthProvider: Token stored: ${_authToken?.substring(0, 20)}...');
-
-      // Set token expiry (5 minutes from now)
       _tokenExpiry = DateTime.now()
           .add(const Duration(minutes: AppConstants.sessionTimeoutMinutes));
 
-      // Store token securely
       await _storage.write(key: AppConstants.authTokenKey, value: _authToken);
-      print('💾 AuthProvider: Token saved to secure storage');
 
-      // Start session timer
       _startSessionTimer();
 
       _isLoading = false;
       notifyListeners();
       return true;
     } catch (e) {
-      print('❌ AuthProvider: Login failed: $e');
       _isLoading = false;
       notifyListeners();
       rethrow;

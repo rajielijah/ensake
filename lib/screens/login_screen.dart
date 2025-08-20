@@ -38,10 +38,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (_formKey.currentState!.validate()) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
       try {
-        print('🚀 LoginScreen: Starting login...');
+        
         await authProvider.login(
             _emailController.text, _passwordController.text);
-        print('✅ LoginScreen: Login successful!');
 
         if (mounted) {
           await Notifier.showToast(
@@ -51,7 +50,6 @@ class _LoginScreenState extends State<LoginScreen> {
           );
         }
       } catch (e) {
-        print('❌ LoginScreen: Login failed: $e');
         if (mounted) {
           String errorMessage = 'Login failed';
 
@@ -236,7 +234,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                   onPressed: () {
-                    // Navigate to forgot password screen
                   },
                   child: Text(
                     AppLocalizations.of(context).forgotPassword,
@@ -298,7 +295,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Navigate to rewards screen for testing
                       Navigator.of(context).pushReplacementNamed('/rewards');
                     },
                     child: Text(
