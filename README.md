@@ -155,6 +155,53 @@ lib/
 
 ---
 
+## 🔌 **API Integration**
+
+### **API Documentation**
+The app integrates with the Ensake API at: https://staging-core.ensake.com/assessment-docs
+
+### **Endpoints Used**
+- `POST /assessment/login` - User authentication
+- `GET /assessment/rewards` - Fetch available rewards
+- `POST /assessment/rewards` - Claim a reward
+
+### **Request Headers**
+- `Content-Type: application/json`
+- `Authorization: Bearer {token}` (for authenticated requests)
+- `Ensake-Device: {device-id}/{platform}/{device-name}`
+
+### **API Response Handling**
+- **Success Responses**: Proper parsing and UI updates
+- **Error Responses**: User-friendly error messages
+- **Network Issues**: Graceful fallback and retry mechanisms
+- **Authentication Errors**: Automatic logout and redirect to login
+
+---
+
+## 🎨 **Design System**
+
+### **Color Scheme**
+- **Primary**: #0066F9 (brand blue)
+- **Light Blue**: #CAD8FF (accent)
+- **White**: #FFFFFF (background)
+- **Semantic Colors**: Success, warning, error states
+- **Text Colors**: Primary, secondary, and disabled states
+- **Shadow Colors**: Subtle shadows for depth
+
+### **Typography**
+- **Font Family**: Plus Jakarta Sans (recommended)
+- **Font Weights**: Light, Regular, Medium, SemiBold, Bold, ExtraBold
+- **Text Styles**: Predefined styles for consistency
+- **Responsive Sizing**: Adaptive text sizes for different screen sizes
+
+### **Component Design**
+- **Cards**: Rounded corners with subtle shadows
+- **Buttons**: Consistent styling with proper states
+- **Input Fields**: Clean design with validation feedback
+- **Navigation**: Intuitive bottom navigation bar
+
+---
+
 ## 🔧 **Development & Testing**
 
 ### **Development Commands**
@@ -239,6 +286,69 @@ flutter upgrade
 - **Memory Management**: Proper disposal of resources
 
 ---
+
+## 🚀 **Deployment**
+
+### **Build Commands**
+```bash
+# Android APK
+flutter build apk --release
+
+# Android App Bundle
+flutter build appbundle --release
+
+# iOS Archive
+flutter build ios --release
+
+# Web Build
+flutter build web --release
+```
+
+### **Release Checklist**
+- [ ] Remove debug prints and logs
+- [ ] Update app version and build number
+- [ ] Test on multiple devices
+- [ ] Verify API endpoints
+- [ ] Check localization completeness
+- [ ] Validate error handling
+- [ ] Performance testing
+
+---
+
+## 🤝 **Contributing**
+
+### **Development Guidelines**
+1. Follow Flutter coding standards
+2. Use meaningful commit messages
+3. Test on multiple platforms
+4. Update documentation for new features
+5. Maintain code quality and readability
+
+### **Code Style**
+- **Dart Format**: Use `dart format` for consistent formatting
+- **Naming Conventions**: Follow Dart naming conventions
+- **Documentation**: Add comments for complex logic
+- **Error Handling**: Comprehensive error handling throughout
+
+---
+
+## 📄 **License**
+
+This project is part of the Ensake mobile developer assessment. All rights reserved.
+
+---
+
+## 📞 **Support**
+
+For technical support or questions:
+- Review the troubleshooting section above
+- Check API documentation
+- Review code comments and documentation
+- Test with provided credentials
+
+---
+
+**🎉 The application is now ready for evaluation and demonstrates proficiency in building mobile applications with user authentication and reward management features!**
 
 ## 🔄 **State Management Flow**
 
