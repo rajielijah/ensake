@@ -28,7 +28,7 @@ A Flutter mobile application that implements user authentication and reward mana
 - **Localization:** English and German language support with locale toggle
 - **Reward Ordering:** 
   - By points (ascending/descending)
-  - Sort button in app bar
+  - Sort button
 
 ## Technical Implementation
 
