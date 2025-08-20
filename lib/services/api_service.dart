@@ -56,13 +56,6 @@ class ApiService {
   Future<User> login(String email, String password) async {
     try {
       final headers = await _getHeaders();
-
-      print(
-          '🔐 Attempting login to: ${AppConstants.baseUrl}${AppConstants.loginEndpoint}');
-      print('📧 Email: $email');
-      print('🔑 Password: $password');
-      print('📱 Device Header: ${await _getDeviceHeader()}');
-
       final response = await http
           .post(
             Uri.parse('${AppConstants.baseUrl}${AppConstants.loginEndpoint}'),
@@ -74,13 +67,9 @@ class ApiService {
           )
           .timeout(const Duration(seconds: 30));
 
-      print('📡 Response Status: ${response.statusCode}');
-      print('📄 Response Body: ${response.body}');
-
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
-        // Check if response has the expected structure
         if (data['message'] == 'Login successful' && data['customer'] != null) {
           return User.fromJson(data);
         } else {
@@ -89,7 +78,6 @@ class ApiService {
       } else if (response.statusCode == 401) {
         throw Exception('Invalid email or password');
       } else if (response.statusCode == 422) {
-        // Parse validation errors
         final errorData = json.decode(response.body);
         if (errorData['errors'] != null) {
           final errors = errorData['errors'] as Map<String, dynamic>;
@@ -105,16 +93,12 @@ class ApiService {
         throw Exception('Login failed - Status: ${response.statusCode}');
       }
     } on http.ClientException catch (e) {
-      print('❌ Client Exception: $e');
       throw Exception('Network error - Please check your connection');
     } on SocketException catch (e) {
-      print('❌ Socket Exception: $e');
       throw Exception('Connection failed - Please check your network');
     } on FormatException catch (e) {
-      print('❌ Format Exception: $e');
       throw Exception('Invalid response from server');
     } catch (e) {
-      print('❌ Unknown Error: $e');
       throw Exception('Login failed: ${e.toString()}');
     }
   }
@@ -123,11 +107,6 @@ class ApiService {
     try {
       final headers = await _getHeaders(authToken: authToken);
 
-      print(
-          '🎁 Fetching rewards from: ${AppConstants.baseUrl}${AppConstants.rewardsEndpoint}');
-      print('🔑 Auth Token: ${authToken.substring(0, 20)}...');
-      print('📱 Device Header: ${await _getDeviceHeader()}');
-
       final response = await http
           .get(
             Uri.parse('${AppConstants.baseUrl}${AppConstants.rewardsEndpoint}'),
@@ -135,18 +114,12 @@ class ApiService {
           )
           .timeout(const Duration(seconds: 30));
 
-      print('📡 Rewards Response Status: ${response.statusCode}');
-      print(
-          '📄 Rewards Response Body: ${response.body.substring(0, response.body.length > 300 ? 300 : response.body.length)}...');
-
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
-        // Validate response structure
         if (data['message'] == 'Rewards fetched successfully' &&
             data['customer_points'] != null &&
             data['rewards'] != null) {
-          print('✅ Rewards data validated successfully');
           return data;
         } else {
           throw Exception('Invalid rewards response format from server');
@@ -162,16 +135,12 @@ class ApiService {
             'Failed to fetch rewards - Status: ${response.statusCode}');
       }
     } on http.ClientException catch (e) {
-      print('❌ Rewards Client Exception: $e');
       throw Exception('Network error - Please check your connection');
     } on SocketException catch (e) {
-      print('❌ Rewards Socket Exception: $e');
       throw Exception('Connection failed - Please check your network');
     } on FormatException catch (e) {
-      print('❌ Rewards Format Exception: $e');
       throw Exception('Invalid response from server');
     } catch (e) {
-      print('❌ Rewards Unknown Error: $e');
       throw Exception('Failed to fetch rewards: ${e.toString()}');
     }
   }
@@ -179,10 +148,6 @@ class ApiService {
   Future<bool> claimReward(String rewardId, String authToken) async {
     try {
       final headers = await _getHeaders(authToken: authToken);
-
-      print('🎯 Claiming reward: $rewardId');
-      print('🔑 Auth Token: ${authToken.substring(0, 20)}...');
-      print('📱 Device Header: ${await _getDeviceHeader()}');
 
       final response = await http
           .post(
@@ -195,19 +160,14 @@ class ApiService {
           )
           .timeout(const Duration(seconds: 30));
 
-      print('📡 Claim Response Status: ${response.statusCode}');
-      print('📄 Claim Response Body: ${response.body}');
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
-        // Check if claim was successful
         if (data['message'] != null &&
             data['message'].toString().toLowerCase().contains('success')) {
-          print('✅ Reward claimed successfully');
           return true;
         } else {
-          print('⚠️ Claim response indicates failure');
           return false;
         }
       } else if (response.statusCode == 400) {
@@ -232,16 +192,12 @@ class ApiService {
             'Failed to claim reward - Status: ${response.statusCode}');
       }
     } on http.ClientException catch (e) {
-      print('❌ Claim Client Exception: $e');
       throw Exception('Network error - Please check your connection');
     } on SocketException catch (e) {
-      print('❌ Claim Socket Exception: $e');
       throw Exception('Connection failed - Please check your network');
     } on FormatException catch (e) {
-      print('❌ Claim Format Exception: $e');
       throw Exception('Invalid response from server');
     } catch (e) {
-      print('❌ Claim Unknown Error: $e');
       throw Exception('Failed to claim reward: ${e.toString()}');
     }
   }

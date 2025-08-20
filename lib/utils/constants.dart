@@ -3,7 +3,7 @@ class AppConstants {
 
   static const String loginEndpoint = '/login';
   static const String rewardsEndpoint = '/rewards';
-  static const String claimRewardEndpoint = '/assessment/rewards';
+  static const String claimRewardEndpoint = '/rewards';
 
   static const String contentTypeHeader = 'Content-Type';
   static const String contentTypeValue = 'application/json';
